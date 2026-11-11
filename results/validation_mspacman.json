@@ -1,0 +1,58 @@
+[
+ {
+  "name": "random_reference",
+  "what": "uniform-random policy on the 500 evaluation seeds",
+  "expected": "about 220 to 260 (reported)",
+  "observed": "262.4 +- 6.5 SE (std 146.1)",
+  "ok": true
+ },
+ {
+  "name": "learning_last100",
+  "what": "last 100 training episodes vs random",
+  "expected": "z > 3",
+  "observed": "1614.0 +- 51.7 vs 262.4 +- 6.5 (z 25.9)",
+  "ok": true
+ },
+ {
+  "name": "learning_eval",
+  "what": "500-episode greedy evaluation vs random",
+  "expected": "z > 3",
+  "observed": "2340.4 +- 21.2 vs 262.4 +- 6.5 (z 93.5)",
+  "ok": true
+ },
+ {
+  "name": "learning_trend",
+  "what": "last 100 training episodes vs first 100 training episodes",
+  "expected": "z > 3",
+  "observed": "1614.0 +- 51.7 vs 240.9 +- 8.2 (z 26.2)",
+  "ok": true
+ },
+ {
+  "name": "q0_vs_g0",
+  "what": "predicted Q(s0, a0) vs realized discounted clipped return, 500 evaluation episodes",
+  "expected": "ratio in [0.5, 2]",
+  "observed": "Q 3.79 vs G 13.52 (ratio 0.28)",
+  "ok": false
+ },
+ {
+  "name": "q_vs_return_posthoc",
+  "what": "[post-hoc, after q0_vs_g0 failed] Q(s_t, a_t) vs realized return G_t over every step of 20 greedy episodes, also split at the first reward (opening with no possible reward / play)",
+  "expected": "all-steps ratio in [0.5, 2]",
+  "observed": "first reward at t = [67]; all: Q 15.12 vs G 14.13 (1.07), opening: Q 3.89 vs G 19.21 (0.20), play: Q 16.36 vs G 13.57 (1.21)",
+  "ok": true
+ },
+ {
+  "name": "q_bounds",
+  "what": "every logged Q-value statistic of training",
+  "expected": "within [-1, 100] (clipped rewards in {0, 1})",
+  "observed": "[0.03, 36.94]",
+  "ok": true
+ },
+ {
+  "name": "coverage",
+  "what": "distinct maze cells visited per episode, trained (greedy) vs random, seeds 0-99",
+  "expected": "z > 3",
+  "observed": "412 +- 7 vs 125 +- 3 (z 38.6)",
+  "ok": true
+ }
+]

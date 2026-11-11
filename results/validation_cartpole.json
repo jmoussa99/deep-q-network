@@ -1,0 +1,93 @@
+[
+ {
+  "name": "solved_seed0",
+  "what": "500-episode greedy evaluation of the seed-0 best snapshot",
+  "expected": "mean >= 475",
+  "observed": "mean 500.0 +- 0.0 (std), 100.0% reach 500, snapshot of episode 740",
+  "ok": true
+ },
+ {
+  "name": "gamma_scale[0.5]",
+  "what": "mean of the last 50 episode max-Q values vs 1/(1-gamma) = 2",
+  "expected": "ratio in [0.9, 1.15]",
+  "observed": "2.024 (ratio 1.012)",
+  "ok": true
+ },
+ {
+  "name": "gamma_scale[0.9]",
+  "what": "mean of the last 50 episode max-Q values vs 1/(1-gamma) = 10",
+  "expected": "ratio in [0.9, 1.15]",
+  "observed": "10.304 (ratio 1.030)",
+  "ok": true
+ },
+ {
+  "name": "gamma_scale[0.95]",
+  "what": "mean of the last 50 episode max-Q values vs 1/(1-gamma) = 20",
+  "expected": "ratio in [0.9, 1.15]",
+  "observed": "20.880 (ratio 1.044)",
+  "ok": true
+ },
+ {
+  "name": "gamma_monotone",
+  "what": "Q-value scale increases with gamma",
+  "expected": "Q(0.5) < Q(0.9) < Q(0.95)",
+  "observed": "{0.5: np.float64(2.02), 0.9: np.float64(10.3), 0.95: np.float64(20.88)}",
+  "ok": true
+ },
+ {
+  "name": "lr0_weights_unchanged",
+  "what": "learning rate 0: final weights vs the seeded initial weights",
+  "expected": "identical",
+  "observed": "identical",
+  "ok": true
+ },
+ {
+  "name": "lr0_no_learning",
+  "what": "learning rate 0: greedy evaluation vs the uniform-random policy",
+  "expected": "<= random + 3 SE = 24.4",
+  "observed": "91.1 (random 22.7 +- 0.6 SE)",
+  "ok": false
+ },
+ {
+  "name": "lr0_vs_untrained_posthoc",
+  "what": "[post-hoc, after lr0_no_learning failed] lr 0 evaluation vs the untrained network's own greedy evaluation, and the trained network vs lr 0",
+  "expected": "equal; trained - lr0 > 3 SE",
+  "observed": "lr0 91.078 vs untrained 91.078; trained 500.0 (z 1157)",
+  "ok": true
+ },
+ {
+  "name": "eps1_off_policy",
+  "what": "trained only on uniformly random actions, evaluated greedily",
+  "expected": "> random + 3 SE = 24.4",
+  "observed": "181.4 +- 5.2 SE",
+  "ok": true
+ },
+ {
+  "name": "physics_quadrants",
+  "what": "greedy action on the (theta, theta_dot) grid, cart at rest in the centre",
+  "expected": ">= 95% push right when falling right, >= 95% push left when falling left",
+  "observed": "48.6% right, 93.9% left",
+  "ok": false
+ },
+ {
+  "name": "physics_where_it_matters_posthoc",
+  "what": "[post-hoc, after physics_quadrants failed] the same quadrants, only cells not doomed next step and with |Q gap| >= 0.5",
+  "expected": ">= 95% right in (+,+), >= 95% left in (-,-)",
+  "observed": "98.5% right (329 cells), 98.0% left (352 cells)",
+  "ok": true
+ },
+ {
+  "name": "end_causes_posthoc",
+  "what": "[diagnostic, post-hoc] how 100 greedy evaluation episodes end, best snapshot and final weights",
+  "expected": "reported",
+  "observed": "{'best': {'time limit': 100, 'cart off track': 0, 'pole fell': 0}, 'final': {'time limit': 0, 'cart off track': 100, 'pole fell': 0}}",
+  "ok": true
+ },
+ {
+  "name": "q0_vs_g0",
+  "what": "predicted Q(s0, a0) vs realized discounted return of the 500 evaluation episodes",
+  "expected": "|ratio - 1| <= 0.10",
+  "observed": "Q 20.856 vs G 20.000 (ratio 1.043)",
+  "ok": true
+ }
+]

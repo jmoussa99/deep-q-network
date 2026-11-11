@@ -1,0 +1,74 @@
+{
+ "meta": {
+  "gamma": 0.99,
+  "pixels": true,
+  "env_kwargs": {},
+  "lr": 0.0001,
+  "batch": 32,
+  "buffer": 100000,
+  "warmup": 20000,
+  "train_every": 4,
+  "target_sync": 10000,
+  "eps_start": 1.0,
+  "eps_end": 0.1,
+  "eps_decay": 500000,
+  "select_every": 100,
+  "select_episodes": 10,
+  "env": "ALE/MsPacman-v5",
+  "seed": 0,
+  "episodes": 200,
+  "hours": null,
+  "device": "cuda",
+  "device_name": "NVIDIA RTX PRO 5000 Blackwell",
+  "cuda_visible_devices": "1",
+  "episodes_done": 200,
+  "stop": "episodes",
+  "best_score": 222.0,
+  "best_episode": 200,
+  "global_steps": 102180
+ },
+ "train": {
+  "episodes": 200,
+  "first100": {
+   "mean": 277.0,
+   "std": 138.80078013345806,
+   "se": 13.880078013345805,
+   "min": 110.0,
+   "max": 1010.0,
+   "n": 100
+  },
+  "last100": {
+   "mean": 295.3,
+   "std": 134.3931741292141,
+   "se": 13.439317412921408,
+   "min": 120.0,
+   "max": 1130.0,
+   "n": 100
+  }
+ },
+ "eval_best": {
+  "mean": 220.64,
+  "std": 134.76317236266925,
+  "se": 6.0267922853289875,
+  "min": 110.0,
+  "max": 430.0,
+  "n": 500,
+  "q0": {
+   "mean": 0.21556973457336426,
+   "std": 0.0,
+   "se": 0.0,
+   "min": 0.21556973457336426,
+   "max": 0.21556973457336426,
+   "n": 500
+  },
+  "g0": {
+   "mean": 4.640137192973705,
+   "std": 0.41993706754174126,
+   "se": 0.018780156585905077,
+   "min": 4.357250017395813,
+   "max": 5.452451143896457,
+   "n": 500
+  }
+ },
+ "same_best_final": true
+}

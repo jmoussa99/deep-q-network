@@ -1,0 +1,191 @@
+[
+ {
+  "name": "preprocess_exact",
+  "what": "assignment preprocessing equals the same formula in signed int64 (shape 88x80x1, int8)",
+  "expected": "483/483 frames",
+  "observed": "483/483 frames",
+  "ok": true
+ },
+ {
+  "name": "preprocess_raw_unchanged",
+  "what": "the raw frame is not modified by preprocessing",
+  "expected": "483/483 frames",
+  "observed": "483/483 frames",
+  "ok": true
+ },
+ {
+  "name": "mspacman_color_unique",
+  "what": "pixels with RGB sum 448 that are not Ms. Pac-Man's (210,164,74)",
+  "expected": "0",
+  "observed": "0",
+  "ok": true
+ },
+ {
+  "name": "mspacman_visible",
+  "what": "share of frames in which Ms. Pac-Man is visible",
+  "expected": ">= 0.90",
+  "observed": "1.000",
+  "ok": true
+ },
+ {
+  "name": "mspacman_compact",
+  "what": "share of visible frames whose (210,164,74) pixels fit in 12x12 (one sprite)",
+  "expected": ">= 0.99",
+  "observed": "1.000",
+  "ok": true
+ },
+ {
+  "name": "frame_stack_reset",
+  "what": "first state of episode 2 = 4 copies of its own reset frame, none from episode 1",
+  "expected": "True",
+  "observed": "True",
+  "ok": true
+ },
+ {
+  "name": "life_loss_not_terminal",
+  "what": "lives fall 3->0 in one episode; only the game-over transition has d=1",
+  "expected": "lives [3,2,1,0], d=1 only at step 482",
+  "observed": "lives [3, 2, 1, 0], drops at [194, 350, 482], d=1 at [482]",
+  "ok": true
+ },
+ {
+  "name": "reward_clip_vs_score",
+  "what": "stored reward = sign(raw reward); score = sum of raw rewards",
+  "expected": "True",
+  "observed": "raw rewards [0.0, 10.0], stored [0.0, 1.0], score 220.0 vs raw sum 220.0",
+  "ok": true
+ },
+ {
+  "name": "buffer_partial",
+  "what": "capacity 5 holding 3: 1000 samples come only from filled slots",
+  "expected": "{1, 2, 3}",
+  "observed": "[1.0, 2.0, 3.0]",
+  "ok": true
+ },
+ {
+  "name": "buffer_wrap",
+  "what": "capacity 5 after 8 adds holds the 5 newest",
+  "expected": "[4, 5, 6, 7, 8], size 5",
+  "observed": "[4.0, 5.0, 6.0, 7.0, 8.0], size 5",
+  "ok": true
+ },
+ {
+  "name": "epsilon_bounds[CartPole-v1]",
+  "what": "epsilon at steps 0, decay/2, decay, 10*decay",
+  "expected": "[1.0, 0.525, 0.05, 0.05]",
+  "observed": "[1.0, 0.525, 0.05, 0.05]",
+  "ok": true
+ },
+ {
+  "name": "epsilon_bounds[ALE/MsPacman-v5]",
+  "what": "epsilon at steps 0, decay/2, decay, 10*decay",
+  "expected": "[1.0, 0.55, 0.1, 0.1]",
+  "observed": "[1.0, 0.55, 0.1, 0.1]",
+  "ok": true
+ },
+ {
+  "name": "target_sync",
+  "what": "target constant within each 100-step window, = online right after a sync, != online otherwise",
+  "expected": "True, True, True",
+  "observed": "True, True (sync steps [100, 200, 300]), True",
+  "ok": true
+ },
+ {
+  "name": "truncation_bootstrap",
+  "what": "episode cut by a 20-step limit with the pole still up: last stored d",
+  "expected": "0 (bootstrap)",
+  "observed": "0 (episode seed offset 0, 20 steps)",
+  "ok": true
+ },
+ {
+  "name": "termination_terminal",
+  "what": "pole falls (last state outside the limits): only the last transition has d=1",
+  "expected": "d=1 only at step 23",
+  "observed": "d=1 at [23], last state [ 0.048  0.403 -0.227 -1.312]",
+  "ok": true
+ },
+ {
+  "name": "chain_q_star",
+  "what": "learn() on all 8 transitions converges to the closed-form Q* (gamma 0.9)",
+  "expected": "max error <= 1e-3, Q*(s,right) [0.729, 0.81, 0.9, 1.0]",
+  "observed": "max error 1.04e-06, Q(s,right) [0.7289999723434448, 0.8100000023841858, 0.8999999761581421, 1.0], Q(s,left) [0.6560999751091003, 0.6560999751091003, 0.7289999723434448, 0.8100000023841858]",
+  "ok": true
+ },
+ {
+  "name": "chain_greedy",
+  "what": "greedy action in every state",
+  "expected": "right (1) in all 4",
+  "observed": "[1, 1, 1, 1]",
+  "ok": true
+ },
+ {
+  "name": "chain_terminal",
+  "what": "Q(3, right): the goal transition is terminal, so no bootstrapped term",
+  "expected": "1.0 +- 1e-3",
+  "observed": "1.000000",
+  "ok": true
+ },
+ {
+  "name": "td_targets_hand",
+  "what": "targets for a non-terminal and a terminal transition",
+  "expected": "[5.5, 2.0]",
+  "observed": "[5.5, 2.0]",
+  "ok": true
+ },
+ {
+  "name": "trace_mspacman_deterministic",
+  "what": "two MsPacman traces without sticky actions, same seed",
+  "expected": "identical",
+  "observed": "identical",
+  "ok": true
+ },
+ {
+  "name": "divergence_guard",
+  "what": "lr = 1e30 must stop training with an error naming episode and step; saved files load",
+  "expected": "RuntimeError at the first learning episode, model.pt and train.csv readable",
+  "observed": "'training diverged at episode 35, global step 1000: non-finite Q-value at step 0 of the episode'; train.csv episodes 1..34, model.pt from episode 20",
+  "ok": true
+ },
+ {
+  "name": "wall_clock_stop",
+  "what": "a 2-second limit ends training after the first episode that finishes past 2 s",
+  "expected": "stop=time, episodes_done = rows, every row but the last at <= 2.0 s, all outputs written",
+  "observed": "stop=time, episodes_done=133, rows=133, last two times [2.0, 2.0], outputs True",
+  "ok": true
+ },
+ {
+  "name": "interrupted_run",
+  "what": "SIGKILL during training, then --eval-only",
+  "expected": "episodes 1..k once each, eval-only exit 0, all outputs, metrics episodes = k",
+  "observed": "episodes 1..37 in order: True, exit 0, outputs True, metrics episodes 37",
+  "ok": true
+ },
+ {
+  "name": "determinism_cpu",
+  "what": "two 40-episode CartPole runs with the same seed (learning from step 200)",
+  "expected": "identical logs and final weights",
+  "observed": "logs identical True, weights identical True, learning happened True",
+  "ok": true
+ },
+ {
+  "name": "seed_disjoint",
+  "what": "reset-seed ranges of training (seeds 0-2), evaluation, selection and validation",
+  "expected": "pairwise disjoint, all < 2^32",
+  "observed": "[(1, 1000000), (1000001, 2000000), (2000001, 3000000), (1000000000, 1000000499), (2000000000, 2000000009), (3000000000, 3000010000)]",
+  "ok": true
+ },
+ {
+  "name": "moving_average_alignment",
+  "what": "trailing 100-episode mean of 1..150, and of a 30-episode run",
+  "expected": "first 50.5, length 51; short run empty",
+  "observed": "first 50.5, length 51; short run length 0",
+  "ok": true
+ },
+ {
+  "name": "histogram_single_value",
+  "what": "500 equal evaluation scores",
+  "expected": "plot written, std 0",
+  "observed": "plot written True, std 0.0",
+  "ok": true
+ }
+]

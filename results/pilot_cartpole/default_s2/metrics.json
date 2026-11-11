@@ -1,0 +1,75 @@
+{
+ "meta": {
+  "gamma": 0.95,
+  "pixels": false,
+  "env_kwargs": {},
+  "lr": 0.001,
+  "batch": 64,
+  "buffer": 50000,
+  "warmup": 1000,
+  "train_every": 1,
+  "target_sync": 500,
+  "eps_start": 1.0,
+  "eps_end": 0.05,
+  "eps_decay": 10000,
+  "select_every": 20,
+  "select_episodes": 10,
+  "env": "CartPole-v1",
+  "seed": 2,
+  "episodes": 600,
+  "hours": null,
+  "device": "cpu",
+  "device_name": "cpu",
+  "cuda_visible_devices": "",
+  "episodes_done": 600,
+  "stop": "episodes",
+  "best_score": 500.0,
+  "best_episode": 600,
+  "global_steps": 55382
+ },
+ "train": {
+  "episodes": 600,
+  "first100": {
+   "mean": 19.65,
+   "std": 10.472064811399012,
+   "se": 1.0472064811399011,
+   "min": 9.0,
+   "max": 66.0,
+   "n": 100
+  },
+  "last100": {
+   "mean": 134.4,
+   "std": 49.97110276060666,
+   "se": 4.997110276060666,
+   "min": 11.0,
+   "max": 330.0,
+   "n": 100
+  }
+ },
+ "eval_best": {
+  "mean": 499.852,
+  "std": 1.3377874833849368,
+  "se": 0.05982767504594178,
+  "min": 481.0,
+  "max": 500.0,
+  "n": 500,
+  "q0": {
+   "mean": 20.662317039489746,
+   "std": 0.028920676739441615,
+   "se": 0.0012933719828937685,
+   "min": 20.590551376342773,
+   "max": 20.74212646484375,
+   "n": 500
+  },
+  "g0": {
+   "mean": 19.99999999985296,
+   "std": 1.4973945415446335e-11,
+   "se": 6.696551968061866e-13,
+   "min": 19.999999999614456,
+   "max": 19.999999999854516,
+   "n": 500
+  },
+  "share_at_time_limit": 0.984
+ },
+ "same_best_final": true
+}
